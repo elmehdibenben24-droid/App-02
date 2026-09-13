@@ -7,29 +7,50 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-4">
-  <div class="max-w-md w-full bg-slate-800 rounded-xl p-6 shadow-xl">
-    <h1 class="text-2xl font-bold text-center mb-6 text-emerald-400">Freelance Rate Calculator</h1>
+  
+  <!-- Main Container: Adjusted to be wider to fit both calculator and banner cleanly -->
+  <div class="max-w-xl w-full">
     
-    <label class="block text-sm mb-1 text-slate-300">Monthly Expenses ($)</label>
-    <input type="number" id="exp" value="800" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 mb-4 text-white focus:outline-none focus:border-emerald-500">
+    <!-- Calculator Card -->
+    <div class="bg-slate-800 rounded-xl p-6 shadow-xl mb-6">
+      <h1 class="text-2xl font-bold text-center mb-6 text-emerald-400">Freelance Rate Calculator</h1>
+      
+      <label class="block text-sm mb-1 text-slate-300">Monthly Expenses ($)</label>
+      <input type="number" id="exp" value="800" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 mb-4 text-white focus:outline-none focus:border-emerald-500">
 
-    <label class="block text-sm mb-1 text-slate-300">Target Monthly Profit ($)</label>
-    <input type="number" id="sav" value="1200" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 mb-4 text-white focus:outline-none focus:border-emerald-500">
+      <label class="block text-sm mb-1 text-slate-300">Target Monthly Profit ($)</label>
+      <input type="number" id="sav" value="1200" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 mb-4 text-white focus:outline-none focus:border-emerald-500">
 
-    <button onclick="calc()" class="w-full bg-emerald-500 hover:bg-emerald-600 transition text-slate-900 font-bold py-3 rounded-lg mb-6">Calculate My Rate</button>
+      <button onclick="calc()" class="w-full bg-emerald-500 hover:bg-emerald-600 transition text-slate-900 font-bold py-3 rounded-lg mb-6">Calculate My Rate</button>
 
-    <div class="grid grid-cols-2 gap-4 text-center border-t border-slate-700 pt-4">
-      <div class="bg-slate-900 p-3 rounded-lg border border-slate-700/50">
-        <p class="text-xs text-slate-400">Min. Hourly Rate</p>
-        <p id="hr" class="text-2xl font-bold text-emerald-400 mt-1">--</p>
+      <div class="grid grid-cols-2 gap-4 text-center border-t border-slate-700 pt-4">
+        <div class="bg-slate-900 p-3 rounded-lg border border-slate-700/50">
+          <p class="text-xs text-slate-400">Min. Hourly Rate</p>
+          <p id="hr" class="text-2xl font-bold text-emerald-400 mt-1">--</p>
+        </div>
+        <div class="bg-slate-900 p-3 rounded-lg border border-slate-700/50">
+          <p class="text-xs text-slate-400">Min. Daily Rate</p>
+          <p id="dr" class="text-2xl font-bold text-white mt-1">--</p>
+        </div>
       </div>
-      <div class="bg-slate-900 p-3 rounded-lg border border-slate-700/50">
-        <p class="text-xs text-slate-400">Min. Daily Rate</p>
-        <p id="dr" class="text-2xl font-bold text-white mt-1">--</p>
-      </div>
+      
+      <p class="text-xs text-slate-500 mt-6 text-center">💡 Includes a 20% buffer for taxes & unexpected costs.</p>
     </div>
-    
-    <p class="text-xs text-slate-500 mt-6 text-center">💡 Includes a 20% buffer for taxes & unexpected costs.</p>
+
+    <!-- Gumroad Upsell Banner (Hidden by default) -->
+    <div id="gumroad-banner" class="hidden bg-slate-800 border border-emerald-500/30 rounded-xl p-6 text-center shadow-xl relative overflow-hidden transition-all duration-500 opacity-0">
+      <div class="absolute top-0 right-0 bg-emerald-500 text-slate-900 text-xs font-bold px-3 py-1 rounded-bl-lg">
+          PREMIUM
+      </div>
+      <h3 class="text-lg font-bold text-white mb-2 mt-2">Ready to charge this rate professionally?</h3>
+      <p class="text-slate-400 text-sm mb-5">
+          Don't lose clients to amateur invoices or weak contracts. Get the complete system used by premium freelancers.
+      </p>
+      <a href="https://benben24.gumroad.com/l/igpleb" target="_blank" class="inline-block w-full bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold py-3 px-4 rounded-lg transition-colors duration-200 shadow-lg shadow-emerald-500/20">
+          Get The Starter Kit V2.0 🚀
+      </a>
+    </div>
+
   </div>
 
   <script>
@@ -39,9 +60,16 @@
       let dr = hr * 5; // Assuming 5 billable hours per day
       document.getElementById('hr').innerText = '$' + Math.ceil(hr);
       document.getElementById('dr').innerText = '$' + Math.ceil(dr);
+
+      // Show the Gumroad banner with a smooth fade-in effect
+      const banner = document.getElementById('gumroad-banner');
+      banner.classList.remove('hidden');
+      // A tiny delay ensures the browser registers the removal of 'hidden' before animating opacity
+      setTimeout(() => {
+        banner.classList.remove('opacity-0');
+        banner.classList.add('opacity-100');
+      }, 50);
     }
-    // Calculate automatically on load
-    calc();
   </script>
 </body>
 </html>
